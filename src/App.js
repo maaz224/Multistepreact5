@@ -1,11 +1,10 @@
 import React from "react";
 import "./styles.css";
-import { MultiStepProgressBar } from "../Components/ProgressBar/MultistepProgressBar";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useState } from "react";
-import { Questions } from "../Components/Questions.js";
-import { MultiStepForm } from "../Components/ProgressBar/Multistepform.js";
-
+import { Questions } from "./Components/Questions.js";
+import { MultiStepForm } from "./Components/ProgressBar/Multistepform.js";
+import MultiStep from "react-multistep";
 function App() {
   const [index, setIndex] = useState(1);
   const [submitted, setSubmitted] = useState(false);

@@ -1,7 +1,7 @@
 import React from "react";
 import "react-step-progress-bar/styles.css";
 import { ProgressBar, Step } from "react-step-progress-bar";
-import "./MultiStepProgressBar.css";
+import "./MultiStepProgressBar.css"
 
 export const MultiStepProgressBar = (props) => {
   return (

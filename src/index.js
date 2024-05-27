@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom";
 import App from "./App";
 import "./styles.css";
-import reportWebVitals from "../reportWebVitals";
+import reportWebVitals from "./reportWebVitals.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 
