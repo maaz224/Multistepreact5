@@ -1,56 +1,43 @@
-import React from "react";
 import { Form } from "react-bootstrap";
-import { useState } from "react";
+import { FormItem } from "./FormItem";
+import React, { useState, useEffect } from "react";
 
-export const FormItem = ({ item, onChange, answer }) => {
-  const [currentValue, setCurrentValue] = useState(answer || null);
-  switch (item.type) {
-    case "text":
-      return (
-        <>
-          <Form.Label>{item.label}</Form.Label>
-          <Form.Control
-            type="text"
-            id={item.label}
-            onChange={(e) => onChange(e.target.value, item.value)}
-            value={currentValue}
+export const MultiStepForm = (props) => {
+  // store index number with the answers?
+  const [answers, setAnswers] = useState({ index: props.step });
+
+  useEffect(() => {
+    // check if the answers isn't empty
+    if (Object.keys(answers).length > 1) {
+      // update page answers
+      props.onPageUpdate(answers.index, answers);
+      // update page number locally
+      setAnswers({ index: props.step });
+    } else {
+      // update page number locally
+      setAnswers({ index: props.step });
+    }
+  }, [props.step]);
+
+  const updateAnswers = (value, category) => {
+    setAnswers({ ...answers, [category]: value });
+  };
+  return (
+    <div className="text-left">
+      {props.list[props.step - 1].items?.map((item, index) => {
+        return (
+          <FormItem
+            key={`${index}_${item.label}`}
+            item={item}
+            onChange={updateAnswers}
+            answer={
+              props.pagesAnswers && props.pagesAnswers[props.step]
+                ? props.pagesAnswers[props.step][item.value]
+                : null
+            }
           />
-        </>
-      );
-      break;
-    case "password":
-      return (
-        <>
-          <Form.Label>{item.label}</Form.Label>
-          <Form.Control
-            type="password"
-            id="inputPassword"
-            onChange={(e) => onChange(e.target.value, item.value)}
-            value={currentValue}
-          />
-        </>
-      );
-      break;
-    case "select":
-      return (
-        <div className="mt-2">
-          <Form.Select
-            aria-label={item.label}
-            onChange={(e) => onChange(e.target.value, item.value)}
-          >
-            <option>{item.label}</option>
-            {item.options.map((opt, index) => {
-              return (
-                <option key={index} value={opt}>
-                  {opt}
-                </option>
-              );
-            })}
-          </Form.Select>
-        </div>
-      );
-      break;
-    default:
-      return <></>;
-  }
+        );
+      })}
+    </div>
+  );
 };
